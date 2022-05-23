@@ -1,0 +1,64 @@
+.story {
+  max-width: 450px;
+  height: fit-content;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  padding-bottom: 1rem;
+}
+
+.story:hover {
+  box-shadow: 0 0 15px 0 #949494;
+}
+
+.story p {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0.8rem 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
+  overflow: hidden;
+}
+
+.story img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.story .qmeta {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 6px;
+}
+
+.story .qmeta p {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.story .author {
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 510;
+}
+
+.story .continueReading {
+  opacity: 0;
+  color: blue;
+  font-size: 14px;
+}
+
+.story:hover .continueReading {
+  opacity: 1;
+  color: blue;
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 600px) {
+  .story {
+    width: 100%;
+  }
+}

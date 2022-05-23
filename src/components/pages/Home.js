@@ -1,3 +1,9 @@
+import Stories from '../Stories';
+
 export default function Home() {
-  return <div>Hellooo</div>;
+  return (
+    <div>
+      <Stories />
+    </div>
+  );
 }
