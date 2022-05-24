@@ -3,6 +3,7 @@ import Illustration from '../Illustration';
 import classes from '../../styles/Signup.module.css';
 import TextInput from '../TextInput';
 import Button from '../Button';
+import signupImagePath from '../../assets/images/signup.svg';
 
 export default function Signup() {
   return (
@@ -10,7 +11,9 @@ export default function Signup() {
       <h1>Create an account</h1>
 
       <div className="column">
-        <Illustration />
+        <Illustration>
+          <img src={signupImagePath} alt="Signup" />
+        </Illustration>
         <Form className={`${classes.signup}`}>
           <TextInput type="text" placeholder="Enter username" icon="person" />
 
