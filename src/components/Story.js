@@ -4,20 +4,27 @@ export default function Story() {
   return (
     <a href="story.html">
       <div className={classes.story}>
-        <h2 className={classes.title}>Just Another Title</h2>
+        <h2 className={classes.title}>যুদ্ধ বন্ধে ইতালির প্রস্তাব ভেবে দেখছে রাশিয়া</h2>
         <p className={classes.description}>
-          Just Another Description: aslkdgfasj dlkgjlk sdajgkjasdlkgjaslk djgkl sjdlkgj dsasgdjk asldkgjalksdjglkjas
-          dklgjlkasdjglkj asdlkgj lkasdjg lkjasdlk dgjaslkdj glkjsadlkgj slkadjg Dummy Description 1 aslkdgfasj dlkgjlk
-          sdajgkjasdlkgjaslk djgkl sjdlkgj dsasgdjk asldkgjalksdjglkjas dklgjlkasdjglkj asdlkgj lkasdjg lkjasdlk
-          dgjaslkdj glkjsadlkgj slkadjg Dummy Description 1 aslkdgfasj dlkgjlk sdajgkjasdlkgjaslk djgkl sjdlkgj dsasgdjk
-          asldkgjalksdjglkjas dklgjlkasdjglkj asdlkgj lkasdjg lkjasdlk dgjaslkdj glkjsadlkgj slkadjg Dummy Description 1
-          aslkdgfasj dlkgjlk sdajgkjasdlkgjaslk djgkl sjdlkgj dsasgdjk asldkgjalksdjglkjas dklgjlkasdjglkj asdlkgj
-          lkasdjg lkjasdlk dgjaslkdj glkjsadlkgj slkadjg Dummy Description 1 aslkdgfasj dlkgjlk sdajgkjasdlkgjaslk djgkl
-          sjdlkgj dsasgdjk asldkgjalksdjglkjas dklgjlkasdjglkj asdlkgj lkasdjg lkjasdlk dgjaslkdj glkjsadlkgj slkadjg{' '}
-          Dummy Description 1 aslkdgfasj dlkgjlk sdajgkjasdlkgjaslk djgkl sjdlkgj dsasgdjk asldkgjalksdjglkjas
-          dklgjlkasdjglkj asdlkgj lkasdjg lkjasdlk dgjaslkdj glkjsadlkgj slkadjg{' '}
+          ইউক্রেন যুদ্ধের অবসানে ইতালি যে শান্তি চুক্তির প্রস্তাব দিয়েছে, তা ভেবে দেখছে রাশিয়া। সোমবার রাশিয়ার
+          উপপররাষ্ট্রমন্ত্রী আন্দ্রেই রুদেনকো এ তথ্য জানিয়েছেন। খবর এএফপির। গত ২৪ ফেব্রুয়ারি শুরু হওয়া রাশিয়া ও ইউক্রেন
+          যুদ্ধ কবে থামবে, তার ইঙ্গিত পাওয়া যাচ্ছে না। এই যুদ্ধের কারণে বিশ্ব অর্থনীতি হুমকির মুখে পড়েছে। অবিলম্বে ওই
+          যুদ্ধ বন্ধে আন্তর্জাতিক সম্প্রদায়ের পক্ষ থেকে আহ্বান জানানো হচ্ছে। শান্তি প্রতিষ্ঠায় তুরস্ক ও বেলারুশে রাশিয়া
+          ও ইউক্রেনের নেতারা একাধিক বৈঠক করলেও তাতে কার্যত কোনো ফল আসেনি। আলোচনা বর্তমানে বন্ধ রয়েছে। এরই মধ্যে ইতালির
+          পক্ষ থেকে শান্তিচুক্তির প্রস্তাব এল। এই বিষয়ে রুশ উপপররাষ্ট্রমন্ত্রী বলেন, ‘সম্প্রতি প্রস্তাবটি পাওয়ার পর আমরা
+          এটি এখন পড়ে দেখছি।’ তবে ওই প্রস্তাবের বিস্তারিত জানাতে অস্বীকৃতি জানান তিনি। বলেন, ইতালির প্রস্তাবটি নিয়ে
+          তাঁরা আরও পরে প্রতিক্রিয়া জানাবেন। রুশ উপপররাষ্ট্রমন্ত্রী আন্দ্রেইকে উদ্ধৃত করে রাশিয়ার সংবাদ সংস্থাগুলো
+          জানায়, প্রস্তাব নিয়ে রাশিয়া ও ইতালির মধ্যে এখনো কোনো আলোচনা হয়নি। ইউক্রেনের সঙ্গে যুদ্ধ বন্ধ নিয়ে আলোচনায় রুশ
+          পক্ষের প্রধান আলোচক ভ্লাদিমির মেদিনস্কি। গত রোববার তিনি বলেন, রাশিয়া আবার আলোচনা শুরু করতে প্রস্তুত হলেও
+          ইউক্রেনের কারণেই এটা আটকে আছে। রুশ উপপররাষ্ট্রমন্ত্রী আন্দ্রেই রুদেনকো বলেন, ‘আমাদের কারণে আলোচনা বন্ধ এবং
+          সবকিছু স্থগিত হয়নি।’ ইউক্রেন গঠনমূলক কোনো অবস্থানে এলেই আলোচনা আবার শুরু হবে বলেও জানান তিনি। দেসনায় বিমান
+          হামলায় নিহত হন ৮৭ জন ইউক্রেনের প্রেসিডেন্ট ভ্লাদিমির জেলেনস্কি বলেছেন, ইউক্রেনের দেসনা শহরে রুশ বিমান হামলায়
+          ৮৭ জন নিহত হয়েছে। গত মঙ্গলবার এই হামলা চালানো হয়। তিনি বলেছেন, যুদ্ধ শুরুর পর একক বিমান হামলায় এটি সবচেয়ে বেশি
+          মৃত্যুর ঘটনা। গতকাল সুইজারল্যান্ডের দাভোসে বিশ্বের ব্যবসায়ী নেতাদের সঙ্গে এক ভার্চ্যুয়াল বৈঠকে এ তথ্য জানান
+          তিনি। হামলার দিন রুশ সামরিক বাহিনীর মুখপাত্র বলেছিলেন, দেসনার কাছে ইউক্রেনের সেনাদের প্রশিক্ষণশিবিরে তাঁদের
+          দীর্ঘ মাত্রার, নির্ভুল ক্ষেপণাস্ত্র আঘাতহেনেছে।
         </p>
-        <p className={classes.author}>Author: Just Another Author</p>
+        <p className={classes.author}>Author: প্রথম আলো ডেস্ক</p>
         <p className={classes.continueReading}>CLICK TO CONTINUE READING...</p>
         <div className={classes.qmeta}>
           <p className={classes.createdAt}>Created: 23 May, 2022</p>
