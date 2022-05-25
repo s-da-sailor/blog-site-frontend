@@ -1,8 +1,9 @@
 import classes from '../styles/Story.module.css';
+import { Link } from 'react-router-dom';
 
 export default function Story() {
   return (
-    <a href="story.html">
+    <Link to="stories/1">
       <div className={classes.story}>
         <h2 className={classes.title}>যুদ্ধ বন্ধে ইতালির প্রস্তাব ভেবে দেখছে রাশিয়া</h2>
         <p className={classes.description}>
@@ -31,6 +32,6 @@ export default function Story() {
           <p className={classes.updatedAt}>Last Updated: 23 May, 2022</p>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
