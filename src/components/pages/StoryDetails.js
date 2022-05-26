@@ -1,6 +1,6 @@
 import classes from '../../styles/StoryDetails.module.css';
 import React, { useState, useEffect } from 'react';
-import { useStoryContext } from '../../contexts/storyContext';
+import { useStoryContext } from '../../contexts/StoryContext';
 import { useParams } from 'react-router-dom';
 
 export default function StoryDetails() {
