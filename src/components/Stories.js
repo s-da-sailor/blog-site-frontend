@@ -2,7 +2,7 @@ import classes from '../styles/Stories.module.css';
 import React, { useState, useEffect } from 'react';
 import Story from './Story';
 import { Link } from 'react-router-dom';
-import { useStoryContext } from '../contexts/storyContext';
+import { useStoryContext } from '../contexts/StoryContext';
 
 export default function Stories() {
   const { findAllStories } = useStoryContext();
