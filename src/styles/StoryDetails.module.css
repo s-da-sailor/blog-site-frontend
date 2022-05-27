@@ -37,9 +37,20 @@
   font-weight: 400;
 }
 
-.story .author {
-  font-size: 14px;
+.authorContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.story .authorTitle {
+  font-size: 16px;
+  font-weight: 510;
   font-style: italic;
+}
+
+.story .author {
+  font-size: 16px;
+  text-decoration: underline;
   font-weight: 510;
 }
 

@@ -4,24 +4,29 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import StoryDetails from './pages/StoryDetails';
+import Profile from './pages/Profile';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { StoryContextProvider } from '../contexts/StoryContext';
 import { AuthContextProvider } from '../contexts/AuthContext';
+import { UserContextProvider } from '../contexts/UserContext';
 
 function App() {
   return (
     <Router>
       <AuthContextProvider>
-        <StoryContextProvider>
-          <Layout>
-            <Routes>
-              <Route exact path="/" element={<Home />}></Route>
-              <Route exact path="/signup" element={<Signup />}></Route>
-              <Route exact path="/login" element={<Login />}></Route>
-              <Route exact path="/stories/:id" element={<StoryDetails />}></Route>
-            </Routes>
-          </Layout>
-        </StoryContextProvider>
+        <UserContextProvider>
+          <StoryContextProvider>
+            <Layout>
+              <Routes>
+                <Route exact path="/" element={<Home />}></Route>
+                <Route exact path="/signup" element={<Signup />}></Route>
+                <Route exact path="/login" element={<Login />}></Route>
+                <Route exact path="/stories/:id" element={<StoryDetails />}></Route>
+                <Route exact path="/users/:username" element={<Profile />}></Route>
+              </Routes>
+            </Layout>
+          </StoryContextProvider>
+        </UserContextProvider>
       </AuthContextProvider>
     </Router>
   );
