@@ -4,7 +4,6 @@ import { useAuthContext } from '../contexts/AuthContext';
 
 export default function Account() {
   const { currentUser, logout } = useAuthContext();
-  console.log(localStorage.getItem('token'), currentUser);
 
   return (
     <div className={classes.account}>
@@ -13,18 +12,22 @@ export default function Account() {
           <span className="material-icons-outlined" title="Account">
             account_circle
           </span>
-          <span>{currentUser}</span>
+          <Link to={`/users/${currentUser}`}>
+            <span style={{ color: 'blue' }}>{currentUser}</span>
+          </Link>
           <br />
           <span className="material-icons-outlined" title="Logout">
             logout
           </span>
-          <span onClick={logout}>Logout</span>
+          <span onClick={logout} style={{ color: 'blue' }}>
+            Logout
+          </span>
         </>
       ) : (
         <>
-          <Link to="login">Login</Link>
+          <Link to="/login">Login</Link>
           <br />
-          <Link to="signup">Signup</Link>
+          <Link to="/signup">Signup</Link>
         </>
       )}
     </div>

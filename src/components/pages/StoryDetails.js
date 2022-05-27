@@ -2,6 +2,7 @@ import classes from '../../styles/StoryDetails.module.css';
 import React, { useState, useEffect } from 'react';
 import { useStoryContext } from '../../contexts/StoryContext';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function StoryDetails() {
   const { id } = useParams();
@@ -31,7 +32,12 @@ export default function StoryDetails() {
         <div className={classes.story}>
           <h2 className={classes.title}>{story.title}</h2>
           <br />
-          <p className={classes.author}>Author: {story.author}</p>
+          <Link to={`/users/${story.author}`} className={classes.authorContainer}>
+            <p className={classes.authorTitle}>Author: </p>
+            <p className={classes.author} style={{ color: 'blue' }}>
+              {story.author}
+            </p>
+          </Link>
           <br />
           <div className={classes.qmeta}>
             <p className={classes.createdAt}>Created: {new Date(story.createdAt).toUTCString()}</p>

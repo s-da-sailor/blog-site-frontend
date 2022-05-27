@@ -32,7 +32,7 @@ export default function Stories() {
           {stories &&
             stories.length &&
             stories.map((story) => (
-              <Link to={`/stories/${story.id}`} key={story.id}>
+              <Link to={`/stories/${story.id}`} key={story.id} className="current-user">
                 <Story
                   title={story.title}
                   description={story.description}

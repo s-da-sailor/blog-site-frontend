@@ -8,6 +8,11 @@
   font-size: 16px;
 }
 
+.current-user {
+  color: blue;
+  font-size: 22px;
+}
+
 .account > span:last-child {
   cursor: pointer;
 }
