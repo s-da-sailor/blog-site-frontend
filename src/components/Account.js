@@ -4,6 +4,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 
 export default function Account() {
   const { currentUser, logout } = useAuthContext();
+  console.log(localStorage.getItem('token'), currentUser);
 
   return (
     <div className={classes.account}>
