@@ -1,41 +1,31 @@
 import Form from './Form';
-import classes from './../styles/Signup.module.css';
+import classes from './../styles/Login.module.css';
 import TextInput from './TextInput';
 import Button from './Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuthContext } from '../contexts/AuthContext';
 
-export default function SignupForm() {
+export default function LoginForm() {
   const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { signup } = useAuthContext();
+  const { login } = useAuthContext();
 
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (password !== passwordConfirm) {
-      return setError('Passwords do not match');
-    }
-
     try {
       const userDetails = {
         username,
-        name,
-        email,
         password,
-        passwordConfirm,
       };
 
-      await signup(userDetails);
+      await login(userDetails);
 
       setError(false);
       setLoading(true);
@@ -49,7 +39,7 @@ export default function SignupForm() {
   }
 
   return (
-    <Form className={`${classes.signup}`} onSubmit={handleSubmit}>
+    <Form className={`${classes.login}`} onSubmit={handleSubmit}>
       <TextInput
         type="text"
         placeholder="Enter username"
@@ -57,24 +47,6 @@ export default function SignupForm() {
         required
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-      />
-
-      <TextInput
-        type="text"
-        placeholder="Enter name"
-        icon="person"
-        required
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <TextInput
-        type="text"
-        placeholder="Enter email"
-        icon="alternate_email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
       />
 
       <TextInput
@@ -86,15 +58,6 @@ export default function SignupForm() {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <TextInput
-        type="password"
-        placeholder="Confirm password"
-        icon="lock_clock"
-        required
-        value={passwordConfirm}
-        onChange={(e) => setPasswordConfirm(e.target.value)}
-      />
-
       <Button disabled={loading} type="submit">
         Submit Now
       </Button>
@@ -102,7 +65,7 @@ export default function SignupForm() {
       {error && <p className="error">{error}</p>}
 
       <div className="info">
-        Already have an account? <Link to="/login">Login</Link> instead.
+        Don't have an account? <Link to="/signup">Signup</Link> instead.
       </div>
     </Form>
   );

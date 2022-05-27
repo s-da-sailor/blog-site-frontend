@@ -1,10 +1,6 @@
-import Form from '../Form';
 import Illustration from '../Illustration';
-import classes from '../../styles/Login.module.css';
-import TextInput from '../TextInput';
-import Button from '../Button';
 import loginImagePath from '../../assets/images/login.svg';
-import { Link } from 'react-router-dom';
+import LoginForm from '../LoginForm';
 
 export default function Login() {
   return (
@@ -15,17 +11,7 @@ export default function Login() {
         <Illustration>
           <img src={loginImagePath} alt="Login" />
         </Illustration>
-        <Form className={`${classes.login}`}>
-          <TextInput type="text" placeholder="Enter username" icon="person" />
-
-          <TextInput type="password" placeholder="Enter password" icon="lock" />
-
-          <Button>Submit Now</Button>
-
-          <div className="info">
-            Don't have an account? <Link to="/signup">Signup</Link> instead.
-          </div>
-        </Form>
+        <LoginForm />
       </div>
     </>
   );
