@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 const axios = require('axios').default;
 const AuthContext = React.createContext();
 
@@ -9,35 +9,55 @@ export function useAuthContext() {
 }
 
 export function AuthContextProvider({ children }) {
-  const user = localStorage.getItem('user');
-  const [currentUser, setCurrentUser] = useState(user);
+  const [currentUser, setCurrentUser] = useState();
 
-  const signup = (userDetails) => {
-    axios.post(`${URL}/api/v1/users/signup`, userDetails).then((response) => {
-      if (!!response.data.data) {
-        setCurrentUser(response.data.data.username);
-        localStorage.setItem('token', response.data.data.token);
-        localStorage.setItem('user', response.data.data.username);
-      }
-      return response;
-    });
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const verifyToken = async () => {
+        const config = {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        };
+        const data = {};
+        const userDetails = await axios.post(`${URL}/api/v1/users/verify`, data, config);
+
+        if (userDetails.data.data) setCurrentUser(userDetails.data.data.username);
+        else {
+          setCurrentUser(null);
+          localStorage.clear();
+        }
+      };
+
+      verifyToken();
+    }
+  }, []);
+
+  const signup = async (userDetails) => {
+    const response = await axios.post(`${URL}/api/v1/users/signup`, userDetails);
+    if (!!response.data.data) {
+      setCurrentUser(response.data.data.username);
+      localStorage.setItem('token', response.data.data.token);
+    }
+    return response;
   };
 
-  const login = (userDetails) =>
-    axios.post(`${URL}/api/v1/users/login`, userDetails).then((response) => {
-      if (!!response.data.data) {
-        setCurrentUser(response.data.data.username);
-        localStorage.setItem('token', response.data.data.token);
-        localStorage.setItem('user', response.data.data.username);
-      }
-      return response;
-    });
+  const login = async (userDetails) => {
+    const response = await axios.post(`${URL}/api/v1/users/login`, userDetails);
+    if (!!response.data.data) {
+      setCurrentUser(response.data.data.username);
+      localStorage.setItem('token', response.data.data.token);
+    }
+    return response;
+  };
 
-  const logout = () =>
-    axios.post(`${URL}/api/v1/users/logout`).then(() => {
-      setCurrentUser(null);
-      localStorage.clear();
-    });
+  const logout = async () => {
+    await axios.post(`${URL}/api/v1/users/logout`);
+    setCurrentUser(null);
+    localStorage.clear();
+  };
 
   const value = {
     currentUser,
