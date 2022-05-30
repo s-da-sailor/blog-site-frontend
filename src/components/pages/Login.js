@@ -1,5 +1,5 @@
 import Illustration from '../Illustration';
-import loginImagePath from '../../assets/images/login.svg';
+import loginImagePath from '../../assets/images/loginpic.svg';
 import LoginForm from '../LoginForm';
 
 export default function Login() {

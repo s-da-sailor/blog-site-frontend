@@ -1,5 +1,5 @@
 import Illustration from '../Illustration';
-import signupImagePath from '../../assets/images/signup.svg';
+import signupImagePath from '../../assets/images/signuppic.svg';
 import SignupForm from '../SignupForm';
 
 export default function Signup() {
