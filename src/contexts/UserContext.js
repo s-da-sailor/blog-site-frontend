@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 const axios = require('axios').default;
 const UserContext = React.createContext();
 
@@ -9,9 +9,13 @@ export function useUserContext() {
 }
 
 export function UserContextProvider({ children }) {
+  const [showPostButton, setShowPostButton] = useState(true);
+
   const findUserByUsername = (username) => axios.get(`${URL}/api/v1/users/${username}`);
 
   const value = {
+    showPostButton,
+    setShowPostButton,
     findUserByUsername,
   };
 

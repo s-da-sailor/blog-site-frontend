@@ -1,0 +1,48 @@
+.floatingBtn {
+  position: fixed;
+  width: 120px;
+  height: 80;
+  bottom: 40px;
+  right: 40px;
+  overflow: hidden;
+  border-radius: 30px;
+  background-color: var(--fontPrimary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+  font-weight: 500;
+}
+
+.floatingBtn:hover {
+  background-color: #407bff;
+  color: var(--fontPrimary);
+}
+
+.floatingBtn:hover span {
+  color: var(--fontPrimary);
+}
+
+.floatingBtn span {
+  color: #407bff;
+  font-weight: 500;
+}
+
+.floatingBtn .open {
+  display: block;
+  font-size: 35px;
+  color: white;
+}
+
+.floatingBtn:hover .open {
+  display: block;
+  font-size: 35px;
+  color: var(--fontPrimary);
+}
+
+.tooltip {
+  display: block;
+}
