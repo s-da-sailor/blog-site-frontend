@@ -36,10 +36,9 @@ export default function SignupForm() {
         passwordConfirm: base64.encode(passwordConfirm),
       };
 
-      await signup(userDetails);
-
-      setError(false);
       setLoading(true);
+      await signup(userDetails);
+      setError(false);
 
       navigate('/');
     } catch (err) {

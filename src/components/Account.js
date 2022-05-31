@@ -13,13 +13,13 @@ export default function Account() {
             account_circle
           </span>
           <Link to={`/users/${currentUser}`}>
-            <span style={{ color: 'blue' }}>{currentUser}</span>
+            <span style={{ color: 'rgb(36, 36, 250)' }}>{currentUser}</span>
           </Link>
           <br />
           <span className="material-icons-outlined" title="Logout">
             logout
           </span>
-          <span onClick={logout} style={{ color: 'blue' }}>
+          <span onClick={logout} style={{ color: 'rgb(36, 36, 250)' }}>
             Logout
           </span>
         </>

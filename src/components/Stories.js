@@ -44,7 +44,7 @@ export default function Stories() {
             ))}
         </div>
       )}
-      {!loading && stories.length === 0 && <div>No story found!</div>}
+      {!loading && stories.length === 0 && <div>No blog found!</div>}
       {error && <div>There was an error!</div>}
       {loading && <div>Loading...</div>}
     </div>

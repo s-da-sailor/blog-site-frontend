@@ -26,10 +26,9 @@ export default function LoginForm() {
         password: base64.encode(password),
       };
 
-      await login(userDetails);
-
-      setError(false);
       setLoading(true);
+      await login(userDetails);
+      setError(false);
 
       navigate('/');
     } catch (err) {
