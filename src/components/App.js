@@ -11,6 +11,7 @@ import { AuthContextProvider } from '../contexts/AuthContext';
 import { UserContextProvider } from '../contexts/UserContext';
 import StoryPost from './pages/StoryPost';
 import StoryUpdate from './pages/StoryUpdate';
+import ProfileUpdate from './pages/ProfileUpdate';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                 <Route exact path="/stories/:id" element={<StoryDetails />}></Route>
                 <Route exact path="/stories/:id/edit" element={<StoryUpdate />}></Route>
                 <Route exact path="/users/:username" element={<Profile />}></Route>
+                <Route exact path="/users/:username/edit" element={<ProfileUpdate />}></Route>
               </Routes>
             </Layout>
           </StoryContextProvider>

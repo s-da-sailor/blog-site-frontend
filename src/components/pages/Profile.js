@@ -1,20 +1,23 @@
 import classes from '../../styles/Profile.module.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Stories from '../Stories';
 import { useUserContext } from '../../contexts/UserContext';
 import { useAuthContext } from '../../contexts/AuthContext';
 import ButtonProfileUpdate from '../ButtonProfileUpdate';
 import ButtonProfileDelete from '../ButtonProfileDelete';
+import ModalConfirmation from '../ModalConfirmation';
 
 export default function Profile() {
-  const { currentUser } = useAuthContext();
+  const { currentUser, setCurrentUser } = useAuthContext();
   const { username } = useParams();
-  const { findUserByUsername } = useUserContext();
+  const { findUserByUsername, deleteUserByUsername } = useUserContext();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [initial, setInitial] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
@@ -39,9 +42,24 @@ export default function Profile() {
     getUser();
   }, [findUserByUsername, username]);
 
-  const handleUpdate = () => {};
+  const handleUpdateButtonClick = () => {
+    navigate(`/users/${username}/edit`);
+  };
 
-  const handleDelete = () => {};
+  const handleDeleteButtonClick = () => {
+    setShowModal(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteUserByUsername(username);
+      localStorage.clear();
+      setCurrentUser(null);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -60,14 +78,17 @@ export default function Profile() {
 
               <div className={classes.buttonContainer}>
                 {currentUser && currentUser === user.username && (
-                  <ButtonProfileUpdate onClick={handleUpdate} text="UPDATE PROFILE" />
+                  <ButtonProfileUpdate onClick={handleUpdateButtonClick} text="EDIT PROFILE" />
                 )}
                 <br />
                 {currentUser && currentUser === user.username && (
-                  <ButtonProfileDelete onClick={handleDelete} text="DELETE PROFILE" />
+                  <ButtonProfileDelete onClick={handleDeleteButtonClick} text="DELETE PROFILE" />
                 )}
               </div>
             </div>
+            {currentUser && currentUser === username && showModal && (
+              <ModalConfirmation closeModal={setShowModal} handleDelete={handleDelete} text="profile" />
+            )}
           </div>
 
           <div className="stories">

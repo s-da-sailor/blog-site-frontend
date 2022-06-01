@@ -17,8 +17,6 @@ export default function Stories() {
         const allStories = await findAllStories();
         setStories(allStories.data.data);
         setLoading(false);
-
-        console.log(allStories.data.data);
       } catch (err) {
         console.error(err);
         setLoading(false);
