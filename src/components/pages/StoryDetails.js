@@ -10,7 +10,7 @@ import ModalConfirmation from '../ModalConfirmation';
 
 export default function StoryDetails() {
   const { id } = useParams();
-  const { findStoryById } = useStoryContext();
+  const { findStoryById, deleteStoryById } = useStoryContext();
   const { currentUser } = useAuthContext();
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,6 +41,15 @@ export default function StoryDetails() {
     setShowModal(true);
   };
 
+  const handleDelete = async () => {
+    try {
+      await deleteStoryById(id);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       {!loading && story && (
@@ -63,7 +72,7 @@ export default function StoryDetails() {
             </p>
           </Link>
           {currentUser && currentUser === story.author && showModal && (
-            <ModalConfirmation closeModal={setShowModal} id={id} />
+            <ModalConfirmation closeModal={setShowModal} handleDelete={handleDelete} text="blog" />
           )}
           <br />
           <div className={classes.qmeta}>
