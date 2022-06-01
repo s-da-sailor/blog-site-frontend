@@ -13,10 +13,36 @@ export function UserContextProvider({ children }) {
 
   const findUserByUsername = (username) => axios.get(`${URL}/api/v1/users/${username}`);
 
+  const updateUserByUsername = (userDetails, username) => {
+    const token = localStorage.getItem('token');
+
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+
+    return axios.patch(`${URL}/api/v1/users/${username}`, userDetails, config);
+  };
+
+  const deleteUserByUsername = (username) => {
+    const token = localStorage.getItem('token');
+
+    return axios.delete(`${URL}/api/v1/users/${username}`, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+
+      data: {},
+    });
+  };
+
   const value = {
     showPostButton,
     setShowPostButton,
     findUserByUsername,
+    updateUserByUsername,
+    deleteUserByUsername,
   };
 
   return <UserContext.Provider value={value}> {children}</UserContext.Provider>;
