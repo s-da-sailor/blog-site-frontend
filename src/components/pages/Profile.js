@@ -3,8 +3,12 @@ import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import Stories from '../Stories';
 import { useUserContext } from '../../contexts/UserContext';
+import { useAuthContext } from '../../contexts/AuthContext';
+import ButtonProfileUpdate from '../ButtonProfileUpdate';
+import ButtonProfileDelete from '../ButtonProfileDelete';
 
 export default function Profile() {
+  const { currentUser } = useAuthContext();
   const { username } = useParams();
   const { findUserByUsername } = useUserContext();
   const [user, setUser] = useState(null);
@@ -35,6 +39,10 @@ export default function Profile() {
     getUser();
   }, [findUserByUsername, username]);
 
+  const handleUpdate = () => {};
+
+  const handleDelete = () => {};
+
   return (
     <>
       {!loading && user && (
@@ -48,6 +56,16 @@ export default function Profile() {
                 <h2 className={classes.username}>{user.username}</h2>
                 <p className={classes.name}>Name: {user.name}</p>
                 <p className={classes.email}>Email: {user.email}</p>
+              </div>
+
+              <div className={classes.buttonContainer}>
+                {currentUser && currentUser === user.username && (
+                  <ButtonProfileUpdate onClick={handleUpdate} text="UPDATE PROFILE" />
+                )}
+                <br />
+                {currentUser && currentUser === user.username && (
+                  <ButtonProfileDelete onClick={handleDelete} text="DELETE PROFILE" />
+                )}
               </div>
             </div>
           </div>

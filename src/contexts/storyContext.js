@@ -25,10 +25,35 @@ export function StoryContextProvider({ children }) {
     return axios.post(`${URL}/api/v1/stories/`, storyDetails, config);
   };
 
+  const updateStoryById = (storyDetails, storyId) => {
+    const token = localStorage.getItem('token');
+
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+
+    return axios.patch(`${URL}/api/v1/stories/${storyId}`, storyDetails, config);
+  };
+
+  const deleteStoryById = (storyId) => {
+    const token = localStorage.getItem('token');
+
+    return axios.delete(`${URL}/api/v1/stories/${storyId}`, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      data: {},
+    });
+  };
+
   const value = {
     findAllStories,
     findStoryById,
     createStory,
+    updateStoryById,
+    deleteStoryById,
   };
 
   return <StoryContext.Provider value={value}> {children}</StoryContext.Provider>;

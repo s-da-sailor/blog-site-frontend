@@ -1,0 +1,46 @@
+.deleteButton {
+  width: 160px;
+  height: 40px;
+  bottom: 0px;
+  right: 0px;
+  overflow: hidden;
+  border-radius: 30px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  color: #ff5050;
+  font-weight: 500;
+  border: 2px solid #ff5050;
+  float: right;
+  position: relative;
+  margin: 5px;
+  font-size: 14px;
+}
+
+.deleteButton:hover {
+  background-color: #ff5050;
+  color: var(--fontPrimary);
+}
+
+.deleteButton:hover span {
+  color: var(--fontPrimary);
+}
+
+.deleteButton span {
+  color: #407bff;
+  font-weight: 500;
+}
+
+.deleteButton .open {
+  display: block;
+  color: #fe0000;
+}
+
+.deleteButton:hover .open {
+  display: block;
+  color: var(--fontPrimary);
+}
