@@ -24,6 +24,10 @@
   word-break: break-word;
 }
 
+.story h2 {
+  word-break: break-word;
+}
+
 .story img {
   width: 100%;
   object-fit: cover;

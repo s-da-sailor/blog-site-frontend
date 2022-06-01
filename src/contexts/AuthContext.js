@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 const axios = require('axios').default;
 const AuthContext = React.createContext();
-const base64 = require('base-64');
 
 const URL = 'http://localhost:8000';
 
@@ -40,7 +39,7 @@ export function AuthContextProvider({ children }) {
     const response = await axios.post(`${URL}/api/v1/users/signup`, userDetails);
     if (!!response.data.data) {
       setCurrentUser(response.data.data.username);
-      localStorage.setItem('token', base64.decode(response.data.data.token));
+      localStorage.setItem('token', response.data.data.token);
     }
     return response;
   };
@@ -49,7 +48,7 @@ export function AuthContextProvider({ children }) {
     const response = await axios.post(`${URL}/api/v1/users/login`, userDetails);
     if (!!response.data.data) {
       setCurrentUser(response.data.data.username);
-      localStorage.setItem('token', base64.decode(response.data.data.token));
+      localStorage.setItem('token', response.data.data.token);
     }
     return response;
   };

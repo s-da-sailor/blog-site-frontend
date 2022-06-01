@@ -5,7 +5,6 @@ import Button from './Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuthContext } from '../contexts/AuthContext';
-const base64 = require('base-64');
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
@@ -23,7 +22,7 @@ export default function LoginForm() {
     try {
       const userDetails = {
         username,
-        password: base64.encode(password),
+        password,
       };
 
       setLoading(true);
