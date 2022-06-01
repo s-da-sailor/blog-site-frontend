@@ -1,44 +1,45 @@
-.floatingBtn {
-  position: fixed;
-  width: 120px;
+.updateButton {
+  width: 175px;
   height: 40px;
-  bottom: 40px;
-  right: 40px;
+  bottom: 0px;
+  right: 0px;
   overflow: hidden;
   border-radius: 30px;
-  background-color: var(--fontPrimary);
+  background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   cursor: pointer;
   user-select: none;
-  color: white;
+  color: #407bff;
   font-weight: 500;
+  border: 2px solid #407bff;
+  position: relative;
+  margin: 5px;
+  font-size: 14px;
 }
 
-.floatingBtn:hover {
+.updateButton:hover {
   background-color: #407bff;
   color: var(--fontPrimary);
 }
 
-.floatingBtn:hover span {
+.updateButton:hover span {
   color: var(--fontPrimary);
 }
 
-.floatingBtn span {
+.updateButton span {
   color: #407bff;
   font-weight: 500;
 }
 
-.floatingBtn .open {
+.updateButton .open {
   display: block;
-  font-size: 35px;
-  color: white;
+  color: #407bff;
 }
 
-.floatingBtn:hover .open {
+.updateButton:hover .open {
   display: block;
-  font-size: 35px;
   color: var(--fontPrimary);
 }

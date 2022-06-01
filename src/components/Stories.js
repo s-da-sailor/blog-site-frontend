@@ -13,9 +13,12 @@ export default function Stories() {
   useEffect(() => {
     const getAllStories = async () => {
       try {
+        setLoading(true);
         const allStories = await findAllStories();
         setStories(allStories.data.data);
         setLoading(false);
+
+        console.log(allStories.data.data);
       } catch (err) {
         console.error(err);
         setLoading(false);
@@ -26,7 +29,7 @@ export default function Stories() {
   }, [findAllStories]);
 
   return (
-    <div>
+    <>
       {!loading && stories.length > 0 && (
         <div className={classes.stories}>
           {stories &&
@@ -44,9 +47,13 @@ export default function Stories() {
             ))}
         </div>
       )}
-      {!loading && stories.length === 0 && <div>No blog found!</div>}
+      {!loading && stories.length === 0 && (
+        <div className={classes.noStories}>
+          <h1>No blog found!</h1>
+        </div>
+      )}
       {error && <div>There was an error!</div>}
       {loading && <div>Loading...</div>}
-    </div>
+    </>
   );
 }

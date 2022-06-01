@@ -1,0 +1,98 @@
+import classes from '../../styles/StoryUpdate.module.css';
+import React from 'react';
+import Button from '../Button';
+import Form from '../Form';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useStoryContext } from '../../contexts/StoryContext';
+import { useUserContext } from '../../contexts/UserContext';
+
+export default function StoryUpdate() {
+  const { id } = useParams();
+  const { findStoryById, updateStoryById } = useStoryContext();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { setShowPostButton } = useUserContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setShowPostButton(false);
+
+    const getStory = async () => {
+      try {
+        const singleStory = await findStoryById(id);
+        setTitle(singleStory.data.data.title);
+        setDescription(singleStory.data.data.description);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+        setError(true);
+      }
+    };
+    getStory();
+
+    return () => {
+      setShowPostButton(true);
+    };
+  }, [setShowPostButton, findStoryById, id]);
+
+  async function handlePost(e) {
+    e.preventDefault();
+
+    try {
+      const storyDetails = {
+        title,
+        description,
+      };
+
+      setLoading(true);
+
+      await updateStoryById(storyDetails, id);
+
+      setError(false);
+
+      navigate(`/stories/${id}`);
+    } catch (err) {
+      setLoading(false);
+      setError(true);
+      console.log(err);
+    }
+  }
+
+  return (
+    <div className={classes.story}>
+      <Form onSubmit={handlePost}>
+        <h3 className={classes.title}>Edit title:</h3>
+        <textarea
+          className={classes.storyTitle}
+          id="title"
+          name="title"
+          required
+          onChange={(e) => setTitle(e.target.value)}
+          defaultValue={title}
+        ></textarea>
+        <br />
+        <br />
+        <h3 className={classes.title}>Edit description:</h3>
+        <textarea
+          className={classes.storyDescription}
+          id="description"
+          name="description"
+          required
+          onChange={(e) => setDescription(e.target.value)}
+          defaultValue={description}
+        ></textarea>
+        <br />
+        <br />
+        <Button disabled={loading} type="submit">
+          UPDATE BLOG
+        </Button>
+
+        {error && <p className="error">{error}</p>}
+      </Form>
+    </div>
+  );
+}
