@@ -44,6 +44,7 @@ export function StoryContextProvider({ children }) {
       headers: {
         Authorization: 'Bearer ' + token,
       },
+
       data: {},
     });
   };
