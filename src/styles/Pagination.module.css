@@ -1,0 +1,36 @@
+.pagination {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination .pageItem {
+  display: inline-block;
+}
+
+.pagination .pageItem a {
+  color: #407bff;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination .pageItem a:hover {
+  background-color: #c4c4c4;
+  color: white;
+  font-size: 125%;
+  transition: all 0.3s;
+}
+
+.pagination .selectedPage a {
+  background-color: #8d8d8d;
+  color: white;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
