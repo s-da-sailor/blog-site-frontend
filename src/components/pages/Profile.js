@@ -1,7 +1,6 @@
 import classes from '../../styles/Profile.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import Stories from '../Stories';
 import { useUserContext } from '../../contexts/UserContext';
 import { useAuthContext } from '../../contexts/AuthContext';
 import ButtonProfileUpdate from '../ButtonProfileUpdate';
