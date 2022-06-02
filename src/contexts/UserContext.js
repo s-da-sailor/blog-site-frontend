@@ -37,12 +37,15 @@ export function UserContextProvider({ children }) {
     });
   };
 
+  const findUserSpecificStories = (username) => axios.get(`${URL}/api/v1/users/${username}/stories`);
+
   const value = {
     showPostButton,
     setShowPostButton,
     findUserByUsername,
     updateUserByUsername,
     deleteUserByUsername,
+    findUserSpecificStories,
   };
 
   return <UserContext.Provider value={value}> {children}</UserContext.Provider>;
