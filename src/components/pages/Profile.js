@@ -7,6 +7,7 @@ import { useAuthContext } from '../../contexts/AuthContext';
 import ButtonProfileUpdate from '../ButtonProfileUpdate';
 import ButtonProfileDelete from '../ButtonProfileDelete';
 import ModalConfirmation from '../ModalConfirmation';
+import UserSpecificStories from '../UserSpecificStories';
 
 export default function Profile() {
   const { currentUser, setCurrentUser } = useAuthContext();
@@ -92,7 +93,7 @@ export default function Profile() {
           </div>
 
           <div className="stories">
-            <Stories />
+            <UserSpecificStories username={username} />
           </div>
         </div>
       )}
