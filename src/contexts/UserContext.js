@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 const axios = require('axios').default;
 const UserContext = React.createContext();
 
+axios.defaults.withCredentials = true;
+
 const URL = 'http://localhost:8000';
 
 export function useUserContext() {
@@ -14,25 +16,16 @@ export function UserContextProvider({ children }) {
   const findUserByUsername = (username) => axios.get(`${URL}/api/v1/users/${username}`);
 
   const updateUserByUsername = (userDetails, username) => {
-    const token = localStorage.getItem('token');
-
     const config = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
+      withCredentials: true,
     };
 
     return axios.patch(`${URL}/api/v1/users/${username}`, userDetails, config);
   };
 
   const deleteUserByUsername = (username) => {
-    const token = localStorage.getItem('token');
-
     return axios.delete(`${URL}/api/v1/users/${username}`, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-
+      withCredentials: true,
       data: {},
     });
   };

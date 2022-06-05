@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 const axios = require('axios').default;
 const AuthContext = React.createContext();
 
+axios.defaults.withCredentials = true;
+
 const URL = 'http://localhost:8000';
 
 export function useAuthContext() {
@@ -12,43 +14,34 @@ export function AuthContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      const verifyToken = async () => {
-        const config = {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        };
-        const data = {};
-        const userDetails = await axios.post(`${URL}/api/v1/users/verify`, data, config);
-
-        if (userDetails.data.data) setCurrentUser(userDetails.data.data.username);
-        else {
-          setCurrentUser(null);
-          localStorage.clear();
-        }
+    const verifyToken = async () => {
+      const config = {
+        withCredentials: true,
       };
+      const data = {};
+      const userDetails = await axios.post(`${URL}/api/v1/users/verify`, data, config);
 
-      verifyToken();
-    }
+      if (userDetails.data && userDetails.data.data) setCurrentUser(userDetails.data.data.username);
+      else {
+        setCurrentUser(null);
+      }
+    };
+
+    verifyToken();
   }, []);
 
   const signup = async (userDetails) => {
     const response = await axios.post(`${URL}/api/v1/users/signup`, userDetails);
-    if (!!response.data.data) {
+    if (response.data && response.data.data) {
       setCurrentUser(response.data.data.username);
-      localStorage.setItem('token', response.data.data.token);
     }
     return response;
   };
 
   const login = async (userDetails) => {
     const response = await axios.post(`${URL}/api/v1/users/login`, userDetails);
-    if (!!response.data.data) {
+    if (response.data && response.data.data) {
       setCurrentUser(response.data.data.username);
-      localStorage.setItem('token', response.data.data.token);
     }
     return response;
   };
@@ -56,7 +49,6 @@ export function AuthContextProvider({ children }) {
   const logout = async () => {
     await axios.post(`${URL}/api/v1/users/logout`);
     setCurrentUser(null);
-    localStorage.clear();
   };
 
   const value = {

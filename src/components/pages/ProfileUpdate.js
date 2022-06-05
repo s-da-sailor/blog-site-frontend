@@ -35,14 +35,8 @@ export default function ProfileUpdate() {
       if (passwordConfirm) userDetails.passwordConfirm = passwordConfirm;
 
       setLoading(true);
-      const response = await updateUserByUsername(userDetails, username);
+      await updateUserByUsername(userDetails, username);
       setError(false);
-
-      if (password) {
-        const newToken = response.data.data.token;
-        localStorage.clear();
-        localStorage.setItem('token', newToken);
-      }
 
       navigate(`/users/${username}`);
     } catch (err) {
