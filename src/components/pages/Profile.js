@@ -53,7 +53,6 @@ export default function Profile() {
   const handleDelete = async () => {
     try {
       await deleteUserByUsername(username);
-      localStorage.clear();
       setCurrentUser(null);
       navigate('/');
     } catch (err) {

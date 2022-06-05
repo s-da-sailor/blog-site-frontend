@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 const axios = require('axios').default;
 const StoryContext = React.createContext();
 
+axios.defaults.withCredentials = true;
+
 const URL = 'http://localhost:8000';
 
 export function useStoryContext() {
@@ -14,37 +16,24 @@ export function StoryContextProvider({ children }) {
   const findStoryById = (storyId) => axios.get(`${URL}/api/v1/stories/${storyId}`);
 
   const createStory = (storyDetails) => {
-    const token = localStorage.getItem('token');
-
     const config = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
+      withCredentials: true,
     };
 
     return axios.post(`${URL}/api/v1/stories/`, storyDetails, config);
   };
 
   const updateStoryById = (storyDetails, storyId) => {
-    const token = localStorage.getItem('token');
-
     const config = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
+      withCredentials: true,
     };
 
     return axios.patch(`${URL}/api/v1/stories/${storyId}`, storyDetails, config);
   };
 
   const deleteStoryById = (storyId) => {
-    const token = localStorage.getItem('token');
-
     return axios.delete(`${URL}/api/v1/stories/${storyId}`, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-
+      withCredentials: true,
       data: {},
     });
   };
