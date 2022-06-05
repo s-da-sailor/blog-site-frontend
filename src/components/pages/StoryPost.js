@@ -10,7 +10,7 @@ import { useUserContext } from '../../contexts/UserContext';
 export default function StoryPost() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { createStory } = useStoryContext();
@@ -38,12 +38,12 @@ export default function StoryPost() {
 
       await createStory(storyDetails);
 
-      setError(false);
+      setError('');
 
       navigate('/');
     } catch (err) {
       setLoading(false);
-      setError(true);
+      setError(err.response.data.message);
       console.log(err);
     }
   }

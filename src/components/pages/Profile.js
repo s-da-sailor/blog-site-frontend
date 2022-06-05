@@ -14,7 +14,7 @@ export default function Profile() {
   const { findUserByUsername, deleteUserByUsername } = useUserContext();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [initial, setInitial] = useState('');
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function Profile() {
       } catch (err) {
         console.error(err);
         setLoading(false);
-        setError(true);
+        setError(err.response.data.message);
       }
     };
     getUser();
@@ -57,6 +57,7 @@ export default function Profile() {
       navigate('/');
     } catch (err) {
       console.log(err);
+      setError(err.response.data.message);
     }
   };
 
@@ -96,7 +97,7 @@ export default function Profile() {
         </div>
       )}
       {!loading && !user && <div>No user found!</div>}
-      {error && <div>There was an error!</div>}
+      {error && <p className="error">{error}</p>}
       {loading && <div>Loading...</div>}
     </>
   );
