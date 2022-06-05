@@ -9,7 +9,7 @@ export default function Stories() {
   const { findAllStories } = useStoryContext();
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [storiesPerPage] = useState(12);
 
@@ -23,7 +23,7 @@ export default function Stories() {
       } catch (err) {
         console.error(err);
         setLoading(false);
-        setError(true);
+        setError(err.response.data.message);
       }
     };
     getAllStories();
@@ -69,7 +69,7 @@ export default function Stories() {
           <h1>No blog found!</h1>
         </div>
       )}
-      {error && <div>There was an error!</div>}
+      {error && <p className="error">{error}</p>}
       {loading && <div>Loading...</div>}
     </>
   );

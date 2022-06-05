@@ -13,7 +13,7 @@ export default function StoryUpdate() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const { setShowPostButton } = useUserContext();
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export default function StoryUpdate() {
       } catch (err) {
         console.error(err);
         setLoading(false);
-        setError(true);
+        setError(err.response.data.message);
       }
     };
     getStory();
@@ -52,12 +52,12 @@ export default function StoryUpdate() {
 
       await updateStoryById(storyDetails, id);
 
-      setError(false);
+      setError('');
 
       navigate(`/stories/${id}`);
     } catch (err) {
       setLoading(false);
-      setError(true);
+      setError(err.response.data.message);
       console.log(err);
     }
   }

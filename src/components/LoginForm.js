@@ -9,7 +9,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuthContext();
@@ -27,12 +27,12 @@ export default function LoginForm() {
 
       setLoading(true);
       await login(userDetails);
-      setError(false);
+      setError('');
 
       navigate('/');
     } catch (err) {
       setLoading(false);
-      setError(true);
+      setError(err.response.data.message);
       console.log(err);
     }
   }

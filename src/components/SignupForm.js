@@ -12,7 +12,7 @@ export default function SignupForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { signup } = useAuthContext();
@@ -37,12 +37,12 @@ export default function SignupForm() {
 
       setLoading(true);
       await signup(userDetails);
-      setError(false);
+      setError('');
 
       navigate('/');
     } catch (err) {
       setLoading(false);
-      setError(true);
+      setError(err.response.data.message);
       console.log(err);
     }
   }

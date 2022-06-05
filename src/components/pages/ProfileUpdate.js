@@ -12,7 +12,7 @@ export default function ProfileUpdate() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { updateUserByUsername } = useUserContext();
@@ -36,12 +36,12 @@ export default function ProfileUpdate() {
 
       setLoading(true);
       await updateUserByUsername(userDetails, username);
-      setError(false);
+      setError('');
 
       navigate(`/users/${username}`);
     } catch (err) {
       setLoading(false);
-      setError(true);
+      setError(err.response.data.message);
       console.log(err);
     }
   }
