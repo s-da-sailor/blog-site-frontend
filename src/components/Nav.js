@@ -1,9 +1,17 @@
 import Account from './Account';
 import classes from '../styles/Nav.module.css';
 import logo from '../assets/images/logo-jab.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Nav() {
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && e.target.value) {
+      navigate(`/search/${e.target.value}`);
+    }
+  };
+
   return (
     <nav className={classes.nav}>
       <ul>
@@ -14,6 +22,18 @@ export default function Nav() {
           </Link>
         </li>
       </ul>
+      <div className={classes.searchUserContainer}>
+        <span className="material-icons-outlined" title="Search">
+          search
+        </span>
+        <input
+          type="text"
+          placeholder="Search by username"
+          className={classes.searchUser}
+          onKeyDown={handleSearch}
+        ></input>
+      </div>
+
       <Account />
     </nav>
   );
