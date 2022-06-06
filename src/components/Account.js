@@ -1,9 +1,18 @@
 import classes from '../styles/Account.module.css';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useEffect } from 'react';
 
 export default function Account() {
-  const { currentUser, logout } = useAuthContext();
+  const { currentUser, logout, verify } = useAuthContext();
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      await verify();
+    };
+
+    verifyToken();
+  }, [verify]);
 
   return (
     <div className={classes.account}>
