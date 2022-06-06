@@ -14,6 +14,7 @@ import StoryUpdate from './pages/StoryUpdate';
 import ProfileUpdate from './pages/ProfileUpdate';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import Users from './Users';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                 <Route exact path="/users/:username/edit" element={<PrivateRoute />}>
                   <Route exact path="/users/:username/edit" element={<ProfileUpdate />} />
                 </Route>
+                <Route exact path="/search/:query" element={<Users />}></Route>
               </Routes>
             </Layout>
           </StoryContextProvider>
