@@ -23,6 +23,7 @@ export default function Profile() {
     const getUser = async () => {
       try {
         const userDetails = await findUserByUsername(username);
+
         setUser(userDetails.data.data);
         setLoading(false);
 
@@ -37,10 +38,13 @@ export default function Profile() {
         console.error(err);
         setLoading(false);
         setError(err.response.data.message);
+        if (err.response.status === 404) {
+          navigate('/notfound');
+        }
       }
     };
     getUser();
-  }, [findUserByUsername, username]);
+  }, [findUserByUsername, username, navigate]);
 
   const handleUpdateButtonClick = () => {
     navigate(`/users/${username}/edit`);
