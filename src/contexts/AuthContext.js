@@ -16,17 +16,21 @@ export function AuthContextProvider({ children }) {
 
   useEffect(() => {
     const verifyToken = async () => {
-      const config = {
-        withCredentials: true,
-      };
-      const data = {};
-      const userDetails = await axios.post(`${URL}/api/v1/users/verify`, data, config);
+      try {
+        const config = {
+          withCredentials: true,
+        };
+        const data = {};
+        const userDetails = await axios.post(`${URL}/api/v1/users/verify`, data, config);
 
-      if (userDetails.data && userDetails.data.data) setCurrentUser(userDetails.data.data.username);
-      else {
-        setCurrentUser(null);
+        if (userDetails.data && userDetails.data.data) setCurrentUser(userDetails.data.data.username);
+        else {
+          setCurrentUser(null);
+        }
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
       }
-      setLoading(false);
     };
 
     verifyToken();

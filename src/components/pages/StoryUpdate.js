@@ -6,8 +6,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useStoryContext } from '../../contexts/StoryContext';
 import { useUserContext } from '../../contexts/UserContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function StoryUpdate() {
+  const { currentUser } = useAuthContext();
   const { id } = useParams();
   const { findStoryById, updateStoryById } = useStoryContext();
   const [title, setTitle] = useState('');
@@ -23,6 +25,11 @@ export default function StoryUpdate() {
     const getStory = async () => {
       try {
         const singleStory = await findStoryById(id);
+
+        if (singleStory.data.data.title !== currentUser) {
+          navigate('/');
+        }
+
         setTitle(singleStory.data.data.title);
         setDescription(singleStory.data.data.description);
         setLoading(false);
@@ -30,6 +37,9 @@ export default function StoryUpdate() {
         console.error(err);
         setLoading(false);
         setError(err.response.data.message);
+        if (err.response.status === 404) {
+          navigate('/');
+        }
       }
     };
     getStory();
@@ -37,7 +47,7 @@ export default function StoryUpdate() {
     return () => {
       setShowPostButton(true);
     };
-  }, [setShowPostButton, findStoryById, id]);
+  }, [setShowPostButton, findStoryById, id, currentUser, navigate]);
 
   async function handlePost(e) {
     e.preventDefault();

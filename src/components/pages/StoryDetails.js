@@ -28,10 +28,13 @@ export default function StoryDetails() {
         console.error(err);
         setLoading(false);
         setError(err.response.data.message);
+        if (err.response.status === 404) {
+          navigate('/notfound');
+        }
       }
     };
     getStory();
-  }, [findStoryById, id]);
+  }, [findStoryById, id, navigate]);
 
   const handleUpdateButtonClick = () => {
     navigate(`/stories/${id}/edit`);

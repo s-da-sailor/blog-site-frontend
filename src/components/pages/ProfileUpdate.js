@@ -3,10 +3,12 @@ import classes from '../../styles/ProfileUpdate.module.css';
 import TextInput from '../TextInput';
 import Button from '../Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function ProfileUpdate() {
+  const { currentUser } = useAuthContext();
   const { username } = useParams();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -18,6 +20,12 @@ export default function ProfileUpdate() {
   const { updateUserByUsername } = useUserContext();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser !== username) {
+      navigate('/');
+    }
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
