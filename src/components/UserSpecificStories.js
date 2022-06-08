@@ -11,7 +11,7 @@ export default function UserSpecificStories({ username }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [storiesPerPage] = useState(3);
+  const [storiesPerPage] = useState(12);
 
   useEffect(() => {
     const getAllStories = async () => {
