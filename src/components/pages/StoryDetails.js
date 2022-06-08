@@ -7,6 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import ButtonUpdate from '../ButtonUpdate';
 import ButtonDelete from '../ButtonDelete';
 import ModalConfirmation from '../ModalConfirmation';
+const axios = require('axios').default;
+
+const URL = 'http://localhost:8000';
 
 export default function StoryDetails() {
   const { id } = useParams();
@@ -53,6 +56,35 @@ export default function StoryDetails() {
     }
   };
 
+  const downloadFile = (fileType, fileExt) => {
+    const getStory = async () => {
+      const config = {
+        headers: {
+          Accept: fileType,
+        },
+        withCredentials: true,
+      };
+
+      const response = await axios.get(`${URL}/api/v1/stories/${id}`, config);
+      let responseData = response.data;
+      if (fileExt === 'json') responseData = JSON.stringify(responseData);
+
+      const responseBlob = new Blob([responseData], { type: 'octet-stream' });
+      const url = window.URL.createObjectURL(responseBlob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${story.title}.${fileExt}`);
+
+      document.body.appendChild(link);
+      link.click();
+      window.URL.revokeObjectURL(url);
+      link.parentNode.removeChild(link);
+    };
+
+    getStory();
+  };
+
   return (
     <div>
       {!loading && story && (
@@ -84,6 +116,13 @@ export default function StoryDetails() {
           </div>
           <br />
           <p className={classes.description}>{story.description}</p>
+          <div className={classes.contentNegotiation}>
+            <p className={classes.contentNegotiationTitle}>Download: </p>
+            <p onClick={() => downloadFile('application/json', 'json')}>JSON</p>
+            <p onClick={() => downloadFile('application/xml', 'xml')}>XML</p>
+            <p onClick={() => downloadFile('text/plain', 'txt')}>Plain Text</p>
+            <p onClick={() => downloadFile('text/html', 'html')}>HTML</p>
+          </div>
         </div>
       )}
       {!loading && !story && <div>No story found!</div>}
