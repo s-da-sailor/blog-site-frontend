@@ -26,7 +26,7 @@ export default function StoryUpdate() {
       try {
         const singleStory = await findStoryById(id);
 
-        if (singleStory.data.data.title !== currentUser) {
+        if (singleStory.data.data.author !== currentUser) {
           navigate('/');
         }
 
