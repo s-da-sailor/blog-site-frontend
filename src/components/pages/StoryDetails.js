@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ButtonUpdate from '../ButtonUpdate';
 import ButtonDelete from '../ButtonDelete';
 import ModalConfirmation from '../ModalConfirmation';
+import Loader from '../Loader';
 const axios = require('axios').default;
 
 //const URL = 'http://localhost:8000';
@@ -128,7 +129,7 @@ export default function StoryDetails() {
       )}
       {!loading && !story && <div>No story found!</div>}
       {error && <p className="error">{error}</p>}
-      {loading && <div>Loading...</div>}
+      {loading && <Loader />}
     </div>
   );
 }

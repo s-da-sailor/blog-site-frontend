@@ -7,6 +7,7 @@ import ButtonProfileUpdate from '../ButtonProfileUpdate';
 import ButtonProfileDelete from '../ButtonProfileDelete';
 import ModalConfirmation from '../ModalConfirmation';
 import UserSpecificStories from '../UserSpecificStories';
+import Loader from '../Loader';
 
 export default function Profile() {
   const { currentUser, setCurrentUser } = useAuthContext();
@@ -102,7 +103,7 @@ export default function Profile() {
       )}
       {!loading && !user && <div>No user found!</div>}
       {error && <p className="error">{error}</p>}
-      {loading && <div>Loading...</div>}
+      {loading && <Loader />}
     </>
   );
 }

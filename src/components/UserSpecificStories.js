@@ -4,6 +4,7 @@ import Story from './Story';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../contexts/UserContext';
 import Pagination from './Pagination';
+import Loader from './Loader';
 
 export default function UserSpecificStories({ username }) {
   const { findUserSpecificStories } = useUserContext();
@@ -71,7 +72,7 @@ export default function UserSpecificStories({ username }) {
         </div>
       )}
       {error && <p className="error">{error}</p>}
-      {loading && <div>Loading...</div>}
+      {loading && <Loader />}
     </>
   );
 }

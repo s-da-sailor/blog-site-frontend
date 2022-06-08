@@ -4,6 +4,7 @@ import Story from './Story';
 import { Link } from 'react-router-dom';
 import { useStoryContext } from '../contexts/StoryContext';
 import Pagination from './Pagination';
+import Loader from './Loader';
 
 export default function Stories() {
   const { findAllStories } = useStoryContext();
@@ -70,7 +71,7 @@ export default function Stories() {
         </div>
       )}
       {error && <p className="error">{error}</p>}
-      {loading && <div>Loading...</div>}
+      {loading && <Loader />}
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useUserContext } from '../contexts/UserContext';
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Pagination from './Pagination';
+import Loader from './Loader';
 
 export default function Users() {
   const { query } = useParams();
@@ -63,7 +64,7 @@ export default function Users() {
         </div>
       )}
       {error && <p className="error">{error}</p>}
-      {loading && <div>Loading...</div>}
+      {loading && <Loader />}
     </>
   );
 }
