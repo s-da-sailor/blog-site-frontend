@@ -9,7 +9,8 @@ import ButtonDelete from '../ButtonDelete';
 import ModalConfirmation from '../ModalConfirmation';
 const axios = require('axios').default;
 
-const URL = 'http://localhost:8000';
+//const URL = 'http://localhost:8000';
+const URL = 'https://just-another-blogsite-server.herokuapp.com';
 
 export default function StoryDetails() {
   const { id } = useParams();

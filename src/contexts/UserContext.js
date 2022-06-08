@@ -4,7 +4,8 @@ const UserContext = React.createContext();
 
 axios.defaults.withCredentials = true;
 
-const URL = 'http://localhost:8000';
+//const URL = 'http://localhost:8000';
+const URL = 'https://just-another-blogsite-server.herokuapp.com';
 
 export function useUserContext() {
   return useContext(UserContext);
