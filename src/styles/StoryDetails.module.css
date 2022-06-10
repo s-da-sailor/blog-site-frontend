@@ -98,7 +98,7 @@
 }
 
 .story .description {
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 
 @media only screen and (max-width: 600px) {
