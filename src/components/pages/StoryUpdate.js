@@ -26,7 +26,7 @@ export default function StoryUpdate() {
       try {
         const singleStory = await findStoryById(id);
 
-        if (singleStory.data.data.author !== currentUser) {
+        if (singleStory.data.data.authorUsername !== currentUser) {
           navigate('/');
         }
 
@@ -36,8 +36,8 @@ export default function StoryUpdate() {
       } catch (err) {
         console.error(err);
         setLoading(false);
-        setError(err.response.data.message);
-        if (err.response.status === 404) {
+        setError(err.response.data);
+        if (err.status === 404) {
           navigate('/');
         }
       }
@@ -67,7 +67,7 @@ export default function StoryUpdate() {
       navigate(`/stories/${id}`);
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err.response.data);
       console.log(err);
     }
   }

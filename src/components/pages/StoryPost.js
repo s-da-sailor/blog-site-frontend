@@ -43,7 +43,7 @@ export default function StoryPost() {
       navigate('/');
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err.response.data);
       console.log(err);
     }
   }

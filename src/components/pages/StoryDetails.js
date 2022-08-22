@@ -10,8 +10,7 @@ import ModalConfirmation from '../ModalConfirmation';
 import Loader from '../Loader';
 const axios = require('axios').default;
 
-//const URL = 'http://localhost:8000';
-const URL = 'https://just-another-blogsite-server.herokuapp.com';
+const URL = 'https://localhost:7234';
 
 export default function StoryDetails() {
   const { id } = useParams();
@@ -32,8 +31,8 @@ export default function StoryDetails() {
       } catch (err) {
         console.error(err);
         setLoading(false);
-        setError(err.response.data.message);
-        if (err.response.status === 404) {
+        setError(err.response.data);
+        if (err.status === 404) {
           navigate('/notfound');
         }
       }
@@ -64,10 +63,10 @@ export default function StoryDetails() {
         headers: {
           Accept: fileType,
         },
-        withCredentials: true,
+        withCredentials: false,
       };
 
-      const response = await axios.get(`${URL}/api/v1/stories/${id}`, config);
+      const response = await axios.get(`${URL}/api/Blog/${id}`, config);
       let responseData = response.data;
       if (fileExt === 'json') responseData = JSON.stringify(responseData);
 
@@ -93,22 +92,22 @@ export default function StoryDetails() {
         <div className={classes.story}>
           <div className={classes.titleButtonContainer}>
             <h2 className={classes.title}>{story.title}</h2>
-            {currentUser && currentUser === story.author && (
+            {currentUser && currentUser === story.authorUsername && (
               <ButtonDelete onClick={handleDeleteButtonClick} text="DELETE BLOG" />
             )}
-            {currentUser && currentUser === story.author && (
+            {currentUser && currentUser === story.authorUsername && (
               <ButtonUpdate onClick={handleUpdateButtonClick} text="EDIT BLOG" />
             )}
           </div>
 
           <br />
-          <Link to={`/users/${story.author}`} className={classes.authorContainer}>
+          <Link to={`/users/${story.authorId}`} className={classes.authorContainer}>
             <p className={classes.authorTitle}>Author: </p>
             <p className={classes.author} style={{ color: 'blue' }}>
-              {story.author}
+              {story.authorUsername}
             </p>
           </Link>
-          {currentUser && currentUser === story.author && showModal && (
+          {currentUser && currentUser === story.authorUsername && showModal && (
             <ModalConfirmation closeModal={setShowModal} handleDelete={handleDelete} text="blog" />
           )}
           <br />

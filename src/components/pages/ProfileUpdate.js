@@ -8,7 +8,7 @@ import { useUserContext } from '../../contexts/UserContext';
 import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function ProfileUpdate() {
-  const { currentUser } = useAuthContext();
+  const { currentUserId, logout } = useAuthContext();
   const { username } = useParams();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -17,12 +17,12 @@ export default function ProfileUpdate() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { updateUserByUsername } = useUserContext();
+  const { updateUserByUserId } = useUserContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser !== username) {
+    if (currentUserId !== username) {
       navigate('/');
     }
   });
@@ -37,19 +37,20 @@ export default function ProfileUpdate() {
     try {
       const userDetails = {};
 
-      if (name) userDetails.name = name;
+      if (name) userDetails.fullName = name;
       if (email) userDetails.email = email;
       if (password) userDetails.password = password;
-      if (passwordConfirm) userDetails.passwordConfirm = passwordConfirm;
+      //if (passwordConfirm) userDetails.passwordConfirm = passwordConfirm;
 
       setLoading(true);
-      await updateUserByUsername(userDetails, username);
+      await updateUserByUserId(userDetails, username);
+      await logout();
       setError('');
 
       navigate(`/users/${username}`);
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err.response.data);
       console.log(err);
     }
   }
@@ -60,8 +61,9 @@ export default function ProfileUpdate() {
         <TextInput
           type="text"
           icon="person"
-          placeholder="new name (optional)"
+          placeholder="new name"
           value={name}
+          required
           onChange={(e) => setName(e.target.value)}
         />
         <br />
@@ -69,8 +71,9 @@ export default function ProfileUpdate() {
         <TextInput
           type="text"
           icon="alternate_email"
-          placeholder="new email (optional)"
+          placeholder="new email"
           value={email}
+          required
           onChange={(e) => setEmail(e.target.value)}
         />
         <br />
@@ -78,8 +81,9 @@ export default function ProfileUpdate() {
         <TextInput
           type="password"
           icon="lock"
-          placeholder="new password (optional)"
+          placeholder="new password"
           value={password}
+          required
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
@@ -87,8 +91,9 @@ export default function ProfileUpdate() {
         <TextInput
           type="password"
           icon="lock_clock"
-          placeholder="new password (optional)"
+          placeholder="new password"
           value={passwordConfirm}
+          required
           onChange={(e) => setPasswordConfirm(e.target.value)}
         />
         <br />

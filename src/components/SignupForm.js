@@ -8,7 +8,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 
 export default function SignupForm() {
   const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
+  const [fullName, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -29,7 +29,7 @@ export default function SignupForm() {
     try {
       const userDetails = {
         username,
-        name,
+        fullName,
         email,
         password,
         passwordConfirm,
@@ -42,7 +42,7 @@ export default function SignupForm() {
       navigate('/');
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err.response.data);
       console.log(err);
     }
   }
@@ -63,7 +63,7 @@ export default function SignupForm() {
         placeholder="Enter name"
         icon="person"
         required
-        value={name}
+        value={fullName}
         onChange={(e) => setName(e.target.value)}
       />
 

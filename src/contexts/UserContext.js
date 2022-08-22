@@ -2,10 +2,9 @@ import React, { useState, useContext } from 'react';
 const axios = require('axios').default;
 const UserContext = React.createContext();
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
-//const URL = 'http://localhost:8000';
-const URL = 'https://just-another-blogsite-server.herokuapp.com';
+const URL = 'https://localhost:7234';
 
 export function useUserContext() {
   return useContext(UserContext);
@@ -14,43 +13,55 @@ export function useUserContext() {
 export function UserContextProvider({ children }) {
   const [showPostButton, setShowPostButton] = useState(true);
 
-  const findUserByUsername = (username) => axios.get(`${URL}/api/v1/users/${username}`);
+  const findUserByUserId = (userId) => axios.get(`${URL}/api/User/${userId}`);
 
-  const updateUserByUsername = (userDetails, username) => {
+  const updateUserByUserId = (userDetails, userId) => {
     const config = {
-      withCredentials: true,
+      withCredentials: false,
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('justAnotherToken')}`,
+      },
     };
 
-    return axios.patch(`${URL}/api/v1/users/${username}`, userDetails, config);
+    return axios.put(`${URL}/api/User/${userId}`, userDetails, config);
   };
 
-  const deleteUserByUsername = (username) => {
-    return axios.delete(`${URL}/api/v1/users/${username}`, {
-      withCredentials: true,
+  const deleteUserByUserId = (userId) => {
+    return axios.delete(`${URL}/api/User/${userId}`, {
+      withCredentials: false,
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('justAnotherToken')}`,
+      },
       data: {},
     });
   };
 
-  const findUserSpecificStories = (username) => axios.get(`${URL}/api/v1/users/${username}/stories`);
+  const findUserSpecificStories = (userId, pageNumber, pageSize) =>
+    axios.get(`${URL}/api/User/${userId}/blogs?PageNumber=${pageNumber}&PageSize=${pageSize}`);
 
-  const searchUser = (query) => {
+  const searchUser = (searchParam, pageNumber, pageSize) => {
     const config = {
-      withCredentials: true,
+      withCredentials: false,
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('justAnotherToken')}`,
+      },
     };
 
-    const userDetails = {
-      query,
-    };
+    const userDetails = {};
 
-    return axios.post(`${URL}/api/v1/users/search`, userDetails, config);
+    return axios.post(
+      `${URL}/api/User/search/${searchParam}?PageNumber=${pageNumber}&PageSize=${pageSize}`,
+      userDetails,
+      config
+    );
   };
 
   const value = {
     showPostButton,
     setShowPostButton,
-    findUserByUsername,
-    updateUserByUsername,
-    deleteUserByUsername,
+    findUserByUserId,
+    updateUserByUserId,
+    deleteUserByUserId,
     findUserSpecificStories,
     searchUser,
   };

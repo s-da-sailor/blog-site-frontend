@@ -2,39 +2,47 @@ import React, { useContext } from 'react';
 const axios = require('axios').default;
 const StoryContext = React.createContext();
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
-//const URL = 'http://localhost:8000';
-const URL = 'https://just-another-blogsite-server.herokuapp.com';
+const URL = 'https://localhost:7234';
 
 export function useStoryContext() {
   return useContext(StoryContext);
 }
 
 export function StoryContextProvider({ children }) {
-  const findAllStories = () => axios.get(`${URL}/api/v1/stories`);
+  const findAllStories = (pageNumber, pageSize) =>
+    axios.get(`${URL}/api/Blog?PageNumber=${pageNumber}&PageSize=${pageSize}`);
 
-  const findStoryById = (storyId) => axios.get(`${URL}/api/v1/stories/${storyId}`);
+  const findStoryById = (storyId) => axios.get(`${URL}/api/Blog/${storyId}`);
 
   const createStory = (storyDetails) => {
     const config = {
-      withCredentials: true,
+      withCredentials: false,
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('justAnotherToken')}`,
+      },
     };
 
-    return axios.post(`${URL}/api/v1/stories/`, storyDetails, config);
+    return axios.post(`${URL}/api/Blog/`, storyDetails, config);
   };
 
   const updateStoryById = (storyDetails, storyId) => {
     const config = {
-      withCredentials: true,
+      withCredentials: false,
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('justAnotherToken')}`,
+      },
     };
 
-    return axios.patch(`${URL}/api/v1/stories/${storyId}`, storyDetails, config);
+    return axios.put(`${URL}/api/Blog/${storyId}`, storyDetails, config);
   };
 
   const deleteStoryById = (storyId) => {
-    return axios.delete(`${URL}/api/v1/stories/${storyId}`, {
-      withCredentials: true,
+    return axios.delete(`${URL}/api/Blog/${storyId}`, {
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('justAnotherToken')}`,
+      },
       data: {},
     });
   };

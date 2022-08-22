@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 
 export default function Account() {
-  const { currentUser, logout } = useAuthContext();
+  const { currentUser, currentUserId, logout } = useAuthContext();
 
   return (
     <div className={classes.account}>
@@ -12,7 +12,7 @@ export default function Account() {
           <span className="material-icons-outlined" title="Account">
             account_circle
           </span>
-          <Link to={`/users/${currentUser}`}>
+          <Link to={`/users/${currentUserId}`}>
             <span style={{ color: 'rgb(36, 36, 250)' }}>{currentUser}</span>
           </Link>
           <br />

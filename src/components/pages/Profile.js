@@ -10,9 +10,9 @@ import UserSpecificStories from '../UserSpecificStories';
 import Loader from '../Loader';
 
 export default function Profile() {
-  const { currentUser, setCurrentUser } = useAuthContext();
+  const { currentUser, logout } = useAuthContext();
   const { username } = useParams();
-  const { findUserByUsername, deleteUserByUsername } = useUserContext();
+  const { findUserByUserId, deleteUserByUserId } = useUserContext();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -23,12 +23,12 @@ export default function Profile() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const userDetails = await findUserByUsername(username);
+        const userDetails = await findUserByUserId(username);
 
         setUser(userDetails.data.data);
         setLoading(false);
 
-        const fullName = userDetails.data.data.name;
+        const fullName = userDetails.data.data.fullName;
 
         let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
         let initials = [...fullName.matchAll(rgx)] || [];
@@ -38,14 +38,14 @@ export default function Profile() {
       } catch (err) {
         console.error(err);
         setLoading(false);
-        setError(err.response.data.message);
-        if (err.response.status === 404) {
+        setError(err.response.data);
+        if (err.status === 404) {
           navigate('/notfound');
         }
       }
     };
     getUser();
-  }, [findUserByUsername, username, navigate]);
+  }, [findUserByUserId, username, navigate]);
 
   const handleUpdateButtonClick = () => {
     navigate(`/users/${username}/edit`);
@@ -57,12 +57,12 @@ export default function Profile() {
 
   const handleDelete = async () => {
     try {
-      await deleteUserByUsername(username);
-      setCurrentUser(null);
+      await deleteUserByUserId(username);
+      await logout();
       navigate('/');
     } catch (err) {
       console.log(err);
-      setError(err.response.data.message);
+      setError(err.response.data);
     }
   };
 
@@ -77,7 +77,7 @@ export default function Profile() {
               </div>
               <div>
                 <h2 className={classes.username}>{user.username}</h2>
-                <p className={classes.name}>Name: {user.name}</p>
+                <p className={classes.name}>Name: {user.fullName}</p>
                 <p className={classes.email}>Email: {user.email}</p>
               </div>
 
@@ -91,13 +91,13 @@ export default function Profile() {
                 )}
               </div>
             </div>
-            {currentUser && currentUser === username && showModal && (
+            {currentUser && currentUser === user.username && showModal && (
               <ModalConfirmation closeModal={setShowModal} handleDelete={handleDelete} text="profile" />
             )}
           </div>
 
           <div className="stories">
-            <UserSpecificStories username={username} />
+            <UserSpecificStories username={user.userId} />
           </div>
         </div>
       )}

@@ -32,7 +32,7 @@ export default function LoginForm() {
       navigate('/');
     } catch (err) {
       setLoading(false);
-      setError(err.response.data.message);
+      setError(err.response.data);
       console.log(err);
     }
   }

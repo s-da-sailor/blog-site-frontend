@@ -8,32 +8,29 @@ import Loader from './Loader';
 
 export default function UserSpecificStories({ username }) {
   const { findUserSpecificStories } = useUserContext();
-  const [stories, setStories] = useState([]);
+  const [currentStories, setCurrentStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [storiesPerPage] = useState(12);
+  const [storiesPerPage] = useState(3);
+  const [totalStories, setTotalStories] = useState();
 
   useEffect(() => {
     const getAllStories = async () => {
       try {
         setLoading(true);
-        const allStories = await findUserSpecificStories(username);
-        setStories(allStories.data.data);
+        const allStories = await findUserSpecificStories(username, currentPage, storiesPerPage);
+        setCurrentStories(allStories.data.data);
+        setTotalStories(allStories.data.totalRecords);
         setLoading(false);
       } catch (err) {
         console.error(err);
         setLoading(false);
-        setError(err.response.data.message);
+        setError(err.response.data);
       }
     };
     getAllStories();
-  }, [findUserSpecificStories, username]);
-
-  // Get current stories
-  const indexOfLastStory = currentPage * storiesPerPage;
-  const indexOfFirstStory = indexOfLastStory - storiesPerPage;
-  const currentStories = stories.slice(indexOfFirstStory, indexOfLastStory);
+  }, [findUserSpecificStories, username, currentPage, storiesPerPage]);
 
   // change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -41,16 +38,16 @@ export default function UserSpecificStories({ username }) {
   return (
     <>
       <div>
-        {!loading && stories.length > 0 && (
+        {!loading && currentStories.length > 0 && (
           <div className={classes.stories}>
-            {stories &&
-              stories.length &&
+            {currentStories &&
+              currentStories.length &&
               currentStories.map((story) => (
-                <Link to={`/stories/${story.id}`} key={story.id} className="current-user">
+                <Link to={`/stories/${story.blogId}`} key={story.blogId} className="current-user">
                   <Story
                     title={story.title}
                     description={story.description}
-                    author={story.author}
+                    author={story.authorUsername}
                     updatedAt={new Date(story.updatedAt).toUTCString()}
                     createdAt={new Date(story.createdAt).toUTCString()}
                   />
@@ -59,14 +56,14 @@ export default function UserSpecificStories({ username }) {
           </div>
         )}
         <Pagination
-          totalPosts={stories.length}
+          totalPosts={totalStories}
           postsPerPage={storiesPerPage}
           paginate={paginate}
           currentPage={currentPage}
         />
       </div>
 
-      {!loading && stories.length === 0 && (
+      {!loading && currentStories.length === 0 && (
         <div className={classes.noStories}>
           <h1>No blog found!</h1>
         </div>
