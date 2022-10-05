@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Just-Another-Blogsite
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[https://just-another-blogsite.netlify.app](https://just-another-blogsite.netlify.app)
+
+A RestAPI implementation of a blog site that supports authentication and authorization and can provide response data in a variety of formats with content-negotiation. This is a ReactJS-based frontend of this application.
 
 ## Available Scripts
 
